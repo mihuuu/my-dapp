@@ -1,5 +1,5 @@
-var Election = artifacts.require("./Election.sol");
+var BestMovie = artifacts.require("./BestMovie.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Election);
+  deployer.deploy(BestMovie);
 };

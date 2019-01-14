@@ -26,13 +26,13 @@ class Form extends React.Component {
     return (
       <form onSubmit={(event) => {
         event.preventDefault()
-        this.props.castVote(this.candidateId.value)
+        this.props.castStar(this.movieId.value)
       }} style={form}>
         <div>
           <label>Select your favorate movies: </label>
-          <select ref={(input) => this.candidateId = input} style={select} className='form-control' >
-            {this.props.candidates.map((candidate) => {
-              return <option key={candidate.id} value={candidate.id}>{candidate.name}</option>
+          <select ref={(input) => this.movieId = input} style={select} className='form-control' >
+            {this.props.movies.map((movie) => {
+              return <option key={movie.id} value={movie.id}>{movie.name}</option>
             })}
           </select>
           <Button style={{fontSize: '18px', color: '#ffffff'}} color="warning"> Star it  <i className="fas fa-star" style={{color:'#ffffff'}}></i></Button>

@@ -2,9 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
-import Election from '../../build/contracts/Election.json'
+import BestMovie from '../../build/contracts/BestMovie.json'
 import Content from './Content'
-// import HeadImg from '../images/header.png';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const wrapper = {
@@ -17,25 +16,25 @@ class App extends React.Component {
     super(props)
     this.state = {
       account: '0x0',
-      candidates: [],
-      hasVoted: false,
-      voteNum: 0,
+      movies: [],
+      hasStared: false,
+      starNum: 0,
       loading: true,
-      voting: false,
+      staring: false,
     }
 
     if (typeof web3 != 'undefined') {
-      this.web3Provider = web3.currentProvider
+      this.web3Provider = web3.currentProvider;
     } else {
-      this.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545')
+      this.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
     }
 
     this.web3 = new Web3(this.web3Provider)
 
-    this.election = TruffleContract(Election)
-    this.election.setProvider(this.web3Provider)
+    this.bestMovie = TruffleContract(BestMovie)
+    this.bestMovie.setProvider(this.web3Provider)
 
-    this.castVote = this.castVote.bind(this)
+    this.castStar = this.castStar.bind(this)
     this.watchEvents = this.watchEvents.bind(this)
   }
 
@@ -43,58 +42,58 @@ class App extends React.Component {
     // TODO: Refactor with promise chain
     this.web3.eth.getCoinbase((err, account) => {
       this.setState({ account })
-      this.election.deployed().then((electionInstance) => {
-        this.electionInstance = electionInstance;
+      this.bestMovie.deployed().then((starInstance) => {
+        this.starInstance = starInstance;
         this.watchEvents();
 
-        this.electionInstance.candidatesCount().then((candidatesCount) => {
-          for (var i = 1; i <= candidatesCount; i++) {
-            this.electionInstance.candidates(i).then((candidate) => {
-              const candidates = [...this.state.candidates];
-              candidates.push({
-                id: candidate[0],
-                name: candidate[1],
-                voteCount: candidate[2]
+        this.starInstance.moviesCount().then((moviesCount) => {
+          for (var i = 1; i <= moviesCount; i++) {
+            this.starInstance.movies(i).then((movie) => {
+              const movies = [...this.state.movies];
+              movies.push({
+                id: movie[0],
+                name: movie[1],
+                starCount: movie[2]
               });
-              this.setState({ candidates: candidates })
+              this.setState({ movies: movies })
             });
           }
         })
 
-        this.electionInstance.voters(this.state.account).then((voter) => {
-          const voteNum = voter[0].toNumber();
+        this.starInstance.users(this.state.account).then((user) => {
+          const starNum = user[0].toNumber();
           this.setState({ 
-            hasVoted: false,
+            hasStared: false,
             loading: false,
-            voteNum: voteNum,
+            starNum: starNum,
            })
         })
       })
     })
 
-    console.log("[1] voteNum: " + this.state.voteNum);
-    console.log("[1] hasVoted: " + this.state.hasVoted);
+    //console.log("[1] starNum: " + this.state.starNum);
+
   }
 
   watchEvents() {
     // TODO: trigger event when vote is counted, not when component renders
-    this.electionInstance.votedEvent({}, {
+    this.starInstance.starEvent({}, {
       fromBlock: 0,
       toBlock: 'latest'
     }).watch((error, event) => {
       this.setState({ 
-        voting: false,
+        staring: false,
       })
     })
   }
 
-  castVote(candidateId) {
-    this.setState({ voting: true })
-    this.electionInstance.vote(candidateId, { from: this.state.account }).then((result) => {
-      this.setState({ voteNum: this.state.voteNum - 1 });
+  castStar(movieId) {
+    this.setState({ staring: true })
+    this.starInstance.star(movieId, { from: this.state.account }).then((result) => {
+      this.setState({ starNum: this.state.starNum - 1 });
 
-      if(this.state.voteNum <= 0)
-        this.setState({ hasVoted: true })
+      if(this.state.starNum <= 0)
+        this.setState({ hasStared: true })
     });
   }
 
@@ -105,14 +104,14 @@ class App extends React.Component {
         <div className='text-center' >
           <img src="../images/header2.png" style={{width:'50%', margin:'0 auto'}}alt="header"/>
           <br/>
-          { this.state.loading || this.state.voting
+          { this.state.loading || this.state.staring
             ? <p className='text-center'>Loading...</p>
             : <Content
                 account={this.state.account}
-                candidates={this.state.candidates}
-                hasVoted={this.state.hasVoted}
-                castVote={this.castVote} 
-                voteNum={this.state.voteNum} />
+                movies={this.state.movies}
+                hasStared={this.state.hasStared}
+                castStar={this.castStar} 
+                starNum={this.state.starNum} />
           }
         </div>
         </div>

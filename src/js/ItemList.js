@@ -14,16 +14,16 @@ class ItemList extends React.Component {
 	}
 
   render() {
-		const {candidates} = this.props;
-		//console.log(candidates[0].voteCount.toNumber());
+		const {movies} = this.props;
+		//console.log(movies[0].voteCount.toNumber());
     return (
     <div style={list}>
 			<Row>
 			{
-				candidates.map( (candidate, index) => {
+				movies.map( (movie, index) => {
 						return(
-							<Col key={candidate.id}>
-								<Movie movieId={candidate.id.toNumber()} voteCount={candidate.voteCount.toNumber()}/>
+							<Col key={movie.id}>
+								<Movie movieId={movie.id.toNumber()} starCount={movie.starCount.toNumber()}/>
 							</Col>
 						)
 					})

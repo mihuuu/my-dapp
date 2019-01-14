@@ -15,7 +15,7 @@ function getObj(id) {
 
 class Movie extends React.Component {
   render() {
-		const {movieId, voteCount} = this.props;
+		const {movieId, starCount} = this.props;
 		const movie = getObj(movieId);
 
     return (
@@ -24,7 +24,7 @@ class Movie extends React.Component {
 				<CardBody>
 				<CardTitle style={{textAlign: 'left', fontSize: '18px'}}>#{movie[0].id} {movie[0].name}</CardTitle>
 				<CardText style={{textAlign: 'left'}}>Rate: {movie[0].rating}</CardText>
-				<CardSubtitle style={{textAlign: 'left', color: '#ffc107'}}><i className="fas fa-star" style={{color:'#ffc107'}}></i> Star: {voteCount} </CardSubtitle>
+				<CardSubtitle style={{textAlign: 'left', color: '#ffc107'}}><i className="fas fa-star" style={{color:'#ffc107'}}></i> Star: {starCount} </CardSubtitle>
 				</CardBody>
 			</Card>
 		)
