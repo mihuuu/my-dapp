@@ -15,7 +15,7 @@ class List extends React.Component {
         <tbody >
           {this.props.candidates.map((candidate) => {
             return(
-              <tr>
+              <tr key={candidate.id}>
                 <th>{candidate.id.toNumber()}</th>
                 <td>{candidate.name}</td>
                 <td>{candidate.voteCount.toNumber()}</td>

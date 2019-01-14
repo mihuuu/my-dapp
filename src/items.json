@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "头号玩家",
+        "date": "2018-03-30",
+        "rating": 8.7,
+        "img": "images/ReadyPlayerOne.jpg"
+    },
+    {
+        "id": 2,
+        "name": "毒液",
+        "date": "2018-11-09",
+        "rating": 7.2,
+        "img": "images/Venom.jpg"
+    },
+    {
+        "id": 3,
+        "name": "海王",
+        "date": "2018-12-07",
+        "rating": 7.8,
+        "img": "images/Aquaman.jpg"
+    },
+    {
+        "id": 4,
+        "name": "我不是药神",
+        "date": "2018-07-05",
+        "rating": 9.0,
+        "img": "images/DyingToSurvive.jpg"
+    },
+    {
+        "id": 5,
+        "name": "小偷家族",
+        "date": "2018-08-03",
+        "rating": 8.7,
+        "img": "images/Shoplifters.jpg"
+    },
+    {
+        "id": 6,
+        "name": "无名之辈",
+        "date": "2018-11-16",
+        "rating": 8.1,
+        "img": "images/CoolFish.jpg"
+    }
+]

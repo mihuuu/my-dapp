@@ -7,26 +7,39 @@ const btnStyle = {
   background:'linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)',
 }
 
-class from extends React.Component {
+const form = {
+  width: '60%',
+  margin: '0 auto',
+  marginTop: 40,
+  fontSize: '25px',
+}
+
+const select = {
+  width:'20%', 
+  display:'inline-block',
+  marginLeft: 20,
+  marginRight: 20,
+}
+
+class Form extends React.Component {
   render() {
     return (
       <form onSubmit={(event) => {
         event.preventDefault()
         this.props.castVote(this.candidateId.value)
-      }}>
-        <div class='form-group'>
-          <label>Select Candidate</label>
-          <select ref={(input) => this.candidateId = input} class='form-control'>
+      }} style={form}>
+        <div>
+          <label>Select your favorate movies: </label>
+          <select ref={(input) => this.candidateId = input} style={select} className='form-control' >
             {this.props.candidates.map((candidate) => {
-              return <option value={candidate.id}>{candidate.name}</option>
+              return <option key={candidate.id} value={candidate.id}>{candidate.name}</option>
             })}
           </select>
+          <Button style={{fontSize: '18px', color: '#ffffff'}} color="warning"> Star it  <i className="fas fa-star" style={{color:'#ffffff'}}></i></Button>
         </div>
-        <Button type='submit' class='btn btn-primary' color="primary"> Vote </Button>
-        <hr />
       </form>
     )
   }
 }
 
-export default from
+export default Form;
