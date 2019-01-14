@@ -11,7 +11,7 @@ const form = {
   width: '60%',
   margin: '0 auto',
   marginTop: 40,
-  fontSize: '25px',
+  fontSize: '24px',
 }
 
 const select = {

@@ -102,7 +102,7 @@ class App extends React.Component {
       <div style={wrapper}>
         <div >
         <div className='text-center' >
-          <img src="../images/header2.png" style={{width:'50%', margin:'0 auto'}}alt="header"/>
+          <img src="../images/header.png" style={{width:'50%', margin:'0 auto'}}alt="header"/>
           <br/>
           { this.state.loading || this.state.staring
             ? <p className='text-center'>Loading...</p>
